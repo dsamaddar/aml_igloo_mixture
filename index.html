@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Raw Material Mixing Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="page-header">
+        <h1>Raw Material Mixing Calculator</h1>
+        <p>Formula quantity and fat-standardization calculator</p>
+    </header>
+
+
+    <!-- =========================================================
+         FORMULA SETTINGS
+    ========================================================== -->
+
+    <section class="card">
+
+        <h2>Formula Settings</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="formulaSelect">
+                    Formula
+                </label>
+
+                <select id="formulaSelect"></select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="batchSize">
+                    Batch Size
+                </label>
+
+                <input
+                    type="number"
+                    id="batchSize"
+                    value="1200"
+                    min="0"
+                    step="0.001"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="unitSelect">
+                    Unit
+                </label>
+
+                <select id="unitSelect">
+                    <option value="KG">KG</option>
+                    <option value="G">G</option>
+                    <option value="L">L</option>
+                    <option value="ML">ML</option>
+                    <option value="PCS">PCS</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="decimalSelect">
+                    Decimal Precision
+                </label>
+
+                <select id="decimalSelect">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         FAT STANDARDIZATION
+    ========================================================== -->
+
+    <section class="card">
+
+        <h2>Fat Standardization</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="targetFat">
+                    Target Total Fat %
+                </label>
+
+                <input
+                    type="number"
+                    id="targetFat"
+                    value="10"
+                    min="0"
+                    step="0.001"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="targetSolids">
+                    Target Total Solids %
+                </label>
+
+                <input
+                    type="number"
+                    id="targetSolids"
+                    value="36.5"
+                    min="0"
+                    step="0.001"
+                >
+
+                <small>
+                    Standard total solids target for the mixture (default 36.5%).
+                </small>
+            </div>
+
+
+            <div
+                class="form-group"
+                id="freshMilkFatGroup"
+            >
+                <label for="freshMilkFat">
+                    Fresh Milk Fat %
+                </label>
+
+                <input
+                    type="number"
+                    id="freshMilkFat"
+                    value="3.8"
+                    min="0"
+                    max="100"
+                    step="0.001"
+                >
+
+                <small>
+                    Used only when the selected formula contains Fresh Milk.
+                </small>
+            </div>
+
+
+            <div
+                class="form-group"
+                id="clrGroup"
+            >
+                <label for="clrValue">
+                    Fresh Milk CLR
+                </label>
+
+                <input
+                    type="number"
+                    id="clrValue"
+                    value="28.5"
+                    min="28"
+                    max="31"
+                    step="0.01"
+                >
+
+                <small>
+                    Corrected Lacto Reading (typically 28–31). Used with Fresh Milk fat to calculate SNF.
+                </small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="adjustmentMethod">
+                    Fat Adjustment Method
+                </label>
+
+                <select id="adjustmentMethod">
+
+                    <option value="fcmp">
+                        FCMP Only
+                    </option>
+
+                    <option value="butter">
+                        Butter Oil Only
+                    </option>
+
+                    <option value="both">
+                        FCMP + Butter Oil
+                    </option>
+
+                </select>
+            </div>
+
+
+            <div
+                class="form-group"
+                id="fcmpRatioGroup"
+            >
+                <label for="fcmpRatio">
+                    FCMP Adjustment %
+                </label>
+
+                <input
+                    type="number"
+                    id="fcmpRatio"
+                    value="70"
+                    min="0"
+                    max="100"
+                    step="1"
+                >
+
+                <small>
+                    Remaining percentage is assigned to Butter Oil.
+                </small>
+            </div>
+
+        </div>
+
+
+        <div class="fat-info">
+
+            <div class="fat-info-item">
+                <span>FCMP Fat</span>
+                <strong>26%</strong>
+            </div>
+
+            <div class="fat-info-item">
+                <span>Butter Oil Fat</span>
+                <strong>100%</strong>
+            </div>
+
+            <div class="fat-info-item">
+                <span>Target Fat</span>
+                <strong id="targetFatDisplay">10%</strong>
+            </div>
+
+            <div class="fat-info-item">
+                <span>Fresh Milk SNF %</span>
+                <strong id="snfDisplay">0%</strong>
+            </div>
+
+            <div class="fat-info-item">
+                <span>Calculated Total Solids</span>
+                <strong id="totalSolidsDisplay">0%</strong>
+            </div>
+
+            <div class="fat-info-item">
+                <span>Target Total Solids</span>
+                <strong id="targetSolidsDisplay">36.5%</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         MATERIAL TABLE
+    ========================================================== -->
+
+    <section class="card">
+
+        <div class="section-header">
+
+            <h2>Raw Materials</h2>
+
+            <div class="button-group">
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="calculate()"
+                >
+                    Calculate
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="resetCalculator()"
+                >
+                    Reset
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-print"
+                    onclick="window.print()"
+                >
+                    Print
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="messageBox"
+            class="message-box hidden"
+        ></div>
+
+
+        <div class="table-wrapper">
+
+            <table id="materialTable">
+
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Raw Material</th>
+                        <th>Ratio %</th>
+                        <th>Fat %</th>
+                        <th>Fat Contribution %</th>
+                        <th>Solid %</th>
+                        <th>Solid Contribution %</th>
+                        <th>Required Qty</th>
+                    </tr>
+                </thead>
+
+                <tbody id="materialTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         SUMMARY
+    ========================================================== -->
+
+    <section class="card">
+
+        <h2>Calculation Summary</h2>
+
+        <div class="summary-grid">
+
+            <div class="summary-item">
+                <span>Target Batch</span>
+                <strong id="summaryBatch">0</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Formula</span>
+                <strong id="summaryFormula">-</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Formula Percentage</span>
+                <strong id="summaryPercentage">0%</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Total Required Quantity</span>
+                <strong id="summaryQuantity">0</strong>
+            </div>
+
+            <div class="summary-item fat-summary">
+                <span>Calculated Total Fat</span>
+                <strong id="summaryFat">0%</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Target Fat</span>
+                <strong id="summaryTargetFat">10%</strong>
+            </div>
+
+            <div class="summary-item fat-summary">
+                <span>Calculated Total Solids</span>
+                <strong id="summarySolids">0%</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Target Total Solids</span>
+                <strong id="summaryTargetSolids">36.5%</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script src="mixcalculator.js"></script>
+
+</body>
+</html>
