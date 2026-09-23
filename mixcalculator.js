@@ -367,6 +367,11 @@ function calculateSNF(milkFat, clr) {
   return milkFat / 5 + clr / 4 + 0.14;
 }
 
+function calculateFreshMilkInLtr(milk_in_kg, clr){
+  var density = 1 + (clr/1000);
+  return milk_in_kg/density;
+}
+
 /* ============================================================
    MATERIAL TOTAL SOLID %
 
@@ -774,6 +779,24 @@ function addMaterialRow(item, serial) {
     document.getElementById("decimalSelect").value,
   );
 
+  /*
+       Fresh Milk: show quantity in Litre side by side with KG.
+
+       calculateFreshMilkInLtr() assumes the required quantity is
+       expressed in KG, so the litre figure is only appended when
+       the item is Fresh Milk and the selected unit is KG.
+    */
+
+  const unit = document.getElementById("unitSelect").value;
+
+  let quantityCellHtml = `${quantity.toFixed(decimalPlaces)} ${escapeHtml(unit)}`;
+
+  if (item.isFreshMilk && unit === "KG") {
+    const milkInLtr = calculateFreshMilkInLtr(quantity, getCLR());
+
+    quantityCellHtml += `<br><span class="qty-ltr">(${milkInLtr.toFixed(decimalPlaces)} L)</span>`;
+  }
+
   row.innerHTML = `
 
         <td>${serial}</td>
@@ -803,7 +826,7 @@ function addMaterialRow(item, serial) {
         </td>
 
         <td class="number-cell required-quantity">
-            ${quantity.toFixed(decimalPlaces)}
+            ${quantityCellHtml}
         </td>
 
     `;
