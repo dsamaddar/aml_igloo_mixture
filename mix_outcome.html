@@ -1,0 +1,362 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mix Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6f8;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            background: white;
+        }
+
+        .result {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .result-box {
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .result-box small {
+            display: block;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .result-box strong {
+            font-size: 22px;
+        }
+
+        .value {
+            font-size: 28px !important;
+        }
+
+        .search {
+            margin-bottom: 15px;
+        }
+
+        .search input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 700px) {
+            .result {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Mix Calculator</h1>
+
+    <div class="form-group">
+        <label for="productSearch">Search Product</label>
+
+        <div class="search">
+            <input
+                type="text"
+                id="productSearch"
+                placeholder="Type product name..."
+            >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="productSelect">Select Product</label>
+
+        <select id="productSelect">
+            <option value="">-- Select Product --</option>
+        </select>
+    </div>
+
+    <div class="result">
+
+        <div class="result-box">
+            <small>Product</small>
+            <strong id="productResult">-</strong>
+        </div>
+
+        <div class="result-box">
+            <small>Mix</small>
+            <strong id="mixResult">-</strong>
+        </div>
+
+        <div class="result-box">
+            <small>Outcome</small>
+            <strong id="valueResult" class="value">-</strong>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const products = [
+
+    ["Chocbar", "General Mix", 28213],
+    ["Chocobar Insta", "Extrusion Mix-Insta", 36694],
+    ["SHELL & CORE (mix)", "General Mix", 51129],
+    ["SHELL & CORE (lolly)", "Lolly Mix", 43134],
+    ["LOLL - Lemon", "Lolly Mix", 19659],
+    ["LOLL - Orange", "Lolly Mix", 19659],
+    ["Lolly - Lychee", "Lolly Mix", 19659],
+    ["Lolly - Kiwi", "Lolly Mix", 20495],
+    ["Lolly - Peach", "Lolly Mix", 20446],
+    ["Lolly - Watermelon", "Lolly Mix", 19659],
+
+    ["DUDH MALAI", "Dudh Malai Mix", 21818],
+    ["EGO", "Ego Mix", 39552],
+    ["Mega 80 ml", "Extrusion Mix-Mega", 31055],
+    ["Macho", "Extrusion Mix-Mega", 24612],
+
+    ["Almond Split (Exotic Bar)", "Almond Split Mix", 25227],
+    ["Swiss Chocolate (Exotic Bar)", "Swiss Chocolate Mix", 25227],
+
+    ["Blueberry Yoghurt (P. Cup)", "Blueberry Yoghurt Mix", 21700],
+    ["Kheer Malai (P. Cup)", "Kheer Malai Mix", 21583],
+    ["Vanilla Cup", "General Mix", 21818],
+    ["Strawberry Regular Cup", "General Mix", 21818],
+    ["Chocolate Regular Cup", "General Mix", 21818],
+    ["Mango Regular Cup", "General Mix", 21818],
+
+    ["Chocolate Black Forest (P. Cup)", "Black Forest Mix", 20668],
+    ["Ice Café (P. Cup)", "Ice Café Mix", 20137],
+    ["Nutricks (P. Cup)", "Nutricks Mix", 20913],
+    ["Igloo Doi (P. Cup)", "Doi Mix", 21067],
+    ["Strawberry Chees Cake (P. Cup)", "Strawberry Chees Cake Mix", 23800],
+    ["French Vanilla (P. Cup)", "French Vanilla Mix", 20641],
+
+    ["Red Velvet 100 Ml (Paper Cup)", "Red Velvet Mix", null],
+
+    ["SS Chocolate Cheers", "General Mix", 20202],
+    ["Snow Ball", "General Mix", 21818],
+    ["Mango Magic", "General Mix", 18909],
+    ["Cornelli Classic", "General Mix", 23455],
+    ["Cornelli Classic - Mini", "General Mix", 30022],
+
+    ["Belgian Chocolate Cone", "Belgian Mix", 26059],
+    ["Belgian Chocolate Cone - Mini", "Belgian Mix", 32340],
+
+    ["Vanilla 0.5L", "General Mix", 4364],
+    ["Strawberry 0.5L", "General Mix", 4364],
+    ["Mango 0.5L", "General Mix", 4727],
+    ["Chocolate 0.5L", "General Mix", 4727],
+    ["Shahi Kulfi - 1/2 L", "General Mix", 4584],
+    ["Zero Vanilla - 1/2 L", "Zero Vanilla Mix", 4040],
+    ["Nawabi Mithai - 1/2 L", "General Mix", 4679],
+
+    ["Vanilla 1L", "General Mix", 2182],
+    ["Strawberry 1L", "General Mix", 2182],
+    ["Chocolate 1L", "General Mix", 2364],
+    ["Mango 1L", "General Mix", 2364],
+    ["Kheer Malai -1 L", "Kheer Malai Mix", 2159],
+    ["Rash Malai - 1 L", "Rash Malai Mix", 4458],
+    ["Butter Scotch - 1 L", "General Mix", 2100],
+    ["Doi - 1 L", "Doi Mix", 2107],
+    ["Nawabi Mithai - 1 L", "General Mix", 2303],
+    ["Blueberry Yoghurt - 1 L", "Blueberry Yoghurt Mix", 2170],
+    ["Ambrosia - 1 L", "General Mix", 2100],
+    ["B. Pecan - 1 L", "B Pecan Mix", 2111],
+    ["Ice Café - 1 L", "Ice Café Mix", 2025],
+    ["Nutricks - 1 L", "Nutricks Mix", 2091],
+    ["Strawberry Cheesecake - 1 L", "Strawberry Cheesecake Mix", 2398],
+    ["French Vanilla - 1 L", "French Vanilla Mix", 2064],
+    ["Red Velvet - 1 L", "Red Velvet Mix", 2102],
+
+    ["D/S Mango Melody", "General Mix", 2397],
+    ["D/S Strawberry Sparkle", "General Mix", 2297],
+    ["D/S Chocolate Cheers", "General Mix", 2397],
+    ["D/S Caramel Combo", "General Mix", 2297],
+
+    ["1 L Cake", "General Mix", 2309],
+
+    ["Vanilla 2L", "General Mix", 1091],
+    ["Strawberry 2L", "General Mix", 1091],
+    ["Chocolate 2L", "General Mix", 1182],
+    ["Mango 2L", "General Mix", 1182],
+
+    ["Vanilla Rich R. Cont.", "General Mix", 436],
+    ["Strawberry Strawberry R. Cont.", "General Mix", 436],
+    ["Swiss Chocolate R. Cont.", "General Mix", 473],
+    ["Mango Mania R. Cont.", "General Mix", 473],
+
+    ["Vanilla Rich", "General Mix", 436],
+    ["Swiss Chocolate", "General Mix", 473],
+    ["Strawberry Strawberry", "General Mix", 436],
+    ["Mango Mania", "General Mix", 473],
+
+    ["Butter Scotch", "General Mix", 413],
+    ["Butter Scotch R. Cont.", "General Mix", 413],
+    ["Butter Scotch Ribbon (Celebration)", "General Mix", 413],
+
+    ["Ambrosia", "General Mix", 413],
+    ["Ambrosia R. Cont.", "General Mix", 413],
+    ["Ambrosia (celebration)", "General Mix", 413],
+
+    ["Black Forest", "Black Mix", 405],
+    ["Black Forest R. Cont.", "Black Forest R Mix", 405],
+    ["Black Forest (Celebration)", "Black Forest Mix", 405],
+
+    ["Chocolate Chips", "General Mix", 393],
+    ["Chocolate Chips (Celebration)", "General Mix", 393],
+    ["Wild Strawberry", "General Mix", 405],
+    ["English Tofee", "General Mix", 405],
+
+    ["French Vanilla (Mi Amore)", "Mi Amore Mix", 382],
+    ["Belgian Chocolate (Mi Amore)", "Mi Amore Mix", 382],
+    ["Chocolate Chips (Mi Amore)", "Mi Amore Mix", 382],
+    ["Black Forest / Choclate Fudge (Mi Amore)", "Mi Amore Mix", 382],
+    ["Strawberries & Cream (Mi Amore)", "Mi Amore Mix", 382],
+    ["Cream & Cookies (Mi Amore)", "Mi Amore Mix", 382],
+    ["Strawberry Swirl (Mi Amore)", "Mi Amore Mix", 382],
+    ["Ambrosia /Orange Starburst (Mi Amore)", "Mi Amore Mix", 382],
+    ["Caramel Crunch Ribbon (Mi Amore)", "Mi Amore Mix", 382],
+    ["Mango Marvel (Mi Amore)", "Mi Amore Mix", 382],
+    ["Butter Scotch (Mi Amore)", "Mi Amore Mix", 382],
+    ["Hazelnut Chocolate (Mi Amore)", "Mi Amore Mix", 382],
+
+    ["Vanilla Mix", "General Mix", 1200],
+    ["Choclate Mix", "General Mix", 1200],
+    ["Strawberry Mix", "General Mix", 1200],
+
+    ["Vanilla Softy Mix", "Softy Mix", 600],
+    ["Choclate Softy Mix", "Softy Mix", 600],
+    ["Strawberry Softy Mix", "Softy Mix", 600],
+
+    ["P.F. Cream & Cookies - 1 L", "Mi Amore Mix", 2116],
+    ["P.F. Chocolate Fudge Brownie - 1 L", "Mi Amore Mix", 2230],
+    ["ICS - Mango Delight - 1 L", "Mi Amore Mix", 2727],
+
+    ["Mango Layers", "General Mix", 3637],
+    ["Mango Fusion", "Mango Fusion Mix", 1515]
+];
+
+const productSelect = document.getElementById("productSelect");
+const productSearch = document.getElementById("productSearch");
+
+const productResult = document.getElementById("productResult");
+const mixResult = document.getElementById("mixResult");
+const valueResult = document.getElementById("valueResult");
+
+
+function populateProducts(filter = "") {
+
+    productSelect.innerHTML =
+        '<option value="">-- Select Product --</option>';
+
+    products
+        .filter(item =>
+            item[0].toLowerCase().includes(filter.toLowerCase())
+        )
+        .forEach((item, index) => {
+
+            const option = document.createElement("option");
+
+            option.value = index;
+
+            option.textContent = item[0];
+
+            productSelect.appendChild(option);
+        });
+}
+
+
+function showResult(index) {
+
+    if (index === "" || index === null) {
+
+        productResult.textContent = "-";
+        mixResult.textContent = "-";
+        valueResult.textContent = "-";
+
+        return;
+    }
+
+    const product = products[index];
+
+    productResult.textContent = product[0];
+
+    mixResult.textContent = product[1];
+
+    valueResult.textContent =
+        product[2] !== null
+            ? product[2].toLocaleString()
+            : "Not Available";
+}
+
+
+productSearch.addEventListener("input", function () {
+
+    populateProducts(this.value);
+
+});
+
+
+productSelect.addEventListener("change", function () {
+
+    showResult(this.value);
+
+});
+
+
+populateProducts();
+
+</script>
+
+</body>
+</html>
+```

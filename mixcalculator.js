@@ -23,7 +23,10 @@ const BUTTER_OIL_NON_FAT_SOLID = 0;
 ============================================================ */
 
 const FORMULAS = {
-  "MIX-1": [
+  "General MIX-FCMP": {
+    commonName: "General Mix",
+    ingredients:
+    [
     {
       name: "FCMP",
       percentage: 9.616,
@@ -87,8 +90,11 @@ const FORMULAS = {
       solidPercentage: 0,
       moisturePercentage: 0,
     },
-  ],
-  "MIX-2": [
+  ]},
+  "General MIX-Butter Oil": {
+    commonName: "General Mix",
+    ingredients:
+    [
     {
       name: "SMP",
       percentage: 10.833,
@@ -152,9 +158,11 @@ const FORMULAS = {
       solidPercentage: 0,
       moisturePercentage: 0,
     },
-  ],
-
-  "MIX-3": [
+  ]},
+  "General MIX-Fresh Milk": {
+    commonName: "General Mix",
+    ingredients:
+    [
     {
       name: "Fresh Milk",
       percentage: 62.5,
@@ -217,14 +225,378 @@ const FORMULAS = {
       solidPercentage: 0,
       moisturePercentage: 0,
     },
-  ],
+  ]},
+  "Dudh Malai Mix - FCMP": {
+    commonName: "Dudh Malai Mix",
+    ingredients:
+    [
+    {
+      name: "FCMP",
+      percentage: 7.766,
+      fatPercentage: 26,
+      solidPercentage: 69,
+      moisturePercentage: 5,
+    },
+
+    {
+      name: "SMP",
+      percentage: 4.25,
+      fatPercentage: 1.0,
+      solidPercentage: 96,
+      moisturePercentage: 4,
+    },
+
+    {
+      name: "V.FAT",
+      percentage: 8,
+      fatPercentage: 100,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Stabilizer (Extruice 379/446/252)",
+      percentage: 0.450,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Sugar",
+      percentage: 11,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Glucose Syrup",
+      percentage: 11.0,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Water",
+      isBalance: true,
+      fatPercentage: 0,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+  ]},
+  "Dudh Malai Mix - Butter Oil": {
+    commonName: "Dudh Malai Mix",
+    ingredients:
+    [
+    {
+      name: "SMP",
+      percentage: 10.0,
+      fatPercentage: 0,
+      solidPercentage: 96,
+      moisturePercentage: 4,
+    },
+
+    {
+      name: "Butter Oil",
+      percentage: 2.0,
+      fatPercentage: 100,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "V.FAT",
+      percentage: 8.0,
+      fatPercentage: 100,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Stabilizer (Extruice 379/446/252)",
+      percentage: 0.450,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Sugar",
+      percentage: 11,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Glucose Syrup",
+      percentage: 11.0,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Water",
+      isBalance: true,
+      fatPercentage: 0,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+  ]},
+  "Dudh Malai Mix - Fresh Milk": {
+    commonName: "Dudh Malai Mix",
+    ingredients:
+    [
+    {
+      name: "Fresh Milk",
+      percentage: 50.0,
+      fatPercentage: 3.8,
+      isFreshMilk: true,
+    },
+
+    {
+      name: "SMP",
+      percentage: 5.871,
+      fatPercentage: 0,
+      solidPercentage: 96,
+      moisturePercentage: 4,
+    },
+
+    {
+      name: "V.FAT",
+      percentage: 8.0,
+      fatPercentage: 100,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Stabilizer (Extruice 379/446/252)",
+      percentage: 0.450,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Sugar",
+      percentage: 11.0,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Glucose Syrup",
+      percentage: 11.0,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Water",
+      isBalance: true,
+      fatPercentage: 0,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+  ]},
+  "Lolly Mix": {
+    commonName: "Lolly Mix",
+    ingredients:
+    [
+    {
+      name: "Stabilizer (Luxice 1005)",
+      percentage: 0.166666666666667,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Sugar",
+      percentage: 20.0,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Glucose Syrup",
+      percentage: 2.0,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Water",
+      isBalance: true,
+      fatPercentage: 0,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+  ]},
+  "Ego Mix - FCMP": {
+    commonName: "Ego Mix",
+    ingredients:
+    [
+    {
+      name: "FCMP",
+      percentage: 15.701,
+      fatPercentage: 26,
+      solidPercentage: 69,
+      moisturePercentage: 5,
+    },
+    {
+      name: "Butter Oil",
+      percentage: 6.118,
+      fatPercentage: 100,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Stabilizer (Extruice 379/446/252)",
+      percentage: 0.45,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Sugar",
+      percentage: 15.333,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Glucose Syrup",
+      percentage: 1.0,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Water",
+      isBalance: true,
+      fatPercentage: 0,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+  ]},
+  "Ego Mix - Butter Oil": {
+    commonName: "Ego Mix",
+    ingredients:
+    [
+    {
+      name: "SMP",
+      percentage: 10.833,
+      fatPercentage: 0,
+      solidPercentage: 96,
+      moisturePercentage: 4,
+    },
+    {
+      name: "Butter Oil",
+      percentage: 10.200,
+      fatPercentage: 100,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Stabilizer (Extruice 379/446/252)",
+      percentage: 0.45,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Sugar",
+      percentage: 15.333,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Glucose Syrup",
+      percentage: 1.0,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Water",
+      isBalance: true,
+      fatPercentage: 0,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+  ]},
+  "Ego Mix - Fresh Milk": {
+    commonName: "Ego Mix",
+    ingredients:
+    [
+    {
+      name: "Fresh Milk",
+      percentage: 70.615,
+      fatPercentage: 3.8,
+      isFreshMilk: true,
+    },
+{
+      name: "SMP",
+      percentage: 5.226,
+      fatPercentage: 0,
+      solidPercentage: 96,
+      moisturePercentage: 4,
+    },
+    {
+      name: "Butter Oil",
+      percentage: 7.375,
+      fatPercentage: 100,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Stabilizer (Extruice 379/446/252)",
+      percentage: 0.45,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Sugar",
+      percentage: 15.333,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+
+    {
+      name: "Glucose Syrup",
+      percentage: 1.0,
+      fatPercentage: 0,
+      solidPercentage: 100,
+      moisturePercentage: 0,
+    },
+    {
+      name: "Water",
+      isBalance: true,
+      fatPercentage: 0,
+      solidPercentage: 0,
+      moisturePercentage: 0,
+    },
+  ]},
 };
 
 /* ============================================================
    GLOBAL STATE
 ============================================================ */
 
-let currentFormula = "MIX-1";
+let currentFormula = "General MIX-1";
 
 /* ============================================================
    INITIALIZATION
